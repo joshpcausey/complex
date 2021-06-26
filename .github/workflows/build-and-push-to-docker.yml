@@ -17,13 +17,13 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
       
       - name: Build client
-        run: docker build -t joshcausey/multi-client ./client
+        run: docker build -t joshcausey/multi-client${GITHUB_SHA} ./client
 
       - name: Build server
-        run: docker build -t joshcausey/multi-server ./worker
+        run: docker build -t joshcausey/multi-server${GITHUB_SHA} ./worker
 
       - name: Build worker
-        run: docker build -t joshcausey/multi-worker ./worker
+        run: docker build -t joshcausey/multi-worker${GITHUB_SHA} ./worker
       
       - name: Push imaages to Docker Hub
         run: |
@@ -38,5 +38,5 @@ jobs:
           service_account_key: ${{ secrets.GCP_SA_KEY }}
           export_default_credentials: true
 
-      - name: Use gcloud CLI
-        run: gcloud info
+      - name: Update kubectl
+        run: gcloud components update kubectl
