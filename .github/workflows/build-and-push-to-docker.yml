@@ -18,6 +18,15 @@ jobs:
       
       - name: Build client
         run: docker build -t joshcausey/client ./client
+
+      - name: Build server
+        run: docker build -t joshcausey/server ./worker
+
+      - name: Build worker
+        run: docker build -t joshcausey/worker ./worker
       
-      - name: Push client to Docker Hub
-        run: docker push joshcausey/client
+      - name: Push imaages to Docker Hub
+        run: |
+          docker push joshcausey/client
+          docker push joshcausey/server
+          docke rpush joshcausey/worker
