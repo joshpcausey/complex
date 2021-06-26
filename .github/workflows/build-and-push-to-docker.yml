@@ -27,6 +27,6 @@ jobs:
       
       - name: Push imaages to Docker Hub
         run: |
-          docker push joshcausey/client
-          docker push joshcausey/server
-          docker push joshcausey/worker
+          docker push joshcausey/multi-client
+          docker push joshcausey/multi-server
+          docker push joshcausey/multi-worker
