@@ -27,9 +27,9 @@ jobs:
       
       - name: Push imaages to Docker Hub
         run: |
-          docker push joshcausey/multi-client
-          docker push joshcausey/multi-server
-          docker push joshcausey/multi-worker
+          docker push joshcausey/multi-client${GITHUB_SHA}
+          docker push joshcausey/multi-server${GITHUB_SHA}
+          docker push joshcausey/multi-worker${GITHUB_SHA}
 
       - name: Set up Cloud SDK
         uses: google-github-actions/setup-gcloud@master
