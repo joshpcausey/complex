@@ -17,19 +17,19 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
       
       - name: Build client
-        run: docker build -t joshcausey/multi-client${GITHUB_SHA} ./client
+        run: docker build -t joshcausey/multi-client:${GITHUB_SHA} ./client
 
       - name: Build server
-        run: docker build -t joshcausey/multi-server${GITHUB_SHA} ./worker
+        run: docker build -t joshcausey/multi-server:${GITHUB_SHA} ./worker
 
       - name: Build worker
-        run: docker build -t joshcausey/multi-worker${GITHUB_SHA} ./worker
+        run: docker build -t joshcausey/multi-worker:${GITHUB_SHA} ./worker
       
       - name: Push imaages to Docker Hub
         run: |
-          docker push joshcausey/multi-client${GITHUB_SHA}
-          docker push joshcausey/multi-server${GITHUB_SHA}
-          docker push joshcausey/multi-worker${GITHUB_SHA}
+          docker push joshcausey/multi-client:${GITHUB_SHA}ß
+          docker push joshcausey/multi-server:${GITHUB_SHA}
+          docker push joshcausey/multi-worker:${GITHUB_SHA}
 
       - name: Set up Cloud SDK
         uses: google-github-actions/setup-gcloud@master
