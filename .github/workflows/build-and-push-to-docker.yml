@@ -17,13 +17,13 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
       
       - name: Build client
-        run: docker build -t joshcausey/client ./client
+        run: docker build -t joshcausey/multi-client ./client
 
       - name: Build server
-        run: docker build -t joshcausey/server ./worker
+        run: docker build -t joshcausey/multi-server ./worker
 
       - name: Build worker
-        run: docker build -t joshcausey/worker ./worker
+        run: docker build -t joshcausey/multi-worker ./worker
       
       - name: Push imaages to Docker Hub
         run: |
