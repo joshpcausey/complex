@@ -52,4 +52,4 @@ jobs:
           kubectl apply -f k8s
           kubectl set image deployments/server-deployment server=joshcausey/multi-server:${GITHUB_SHA}
           kubectl set image deployments/multi-client client=joshcausey/multi-client:${GITHUB_SHA}
-          kubectl set image deployments/multi-worker worker=joshcausey/mul-worker:${GITHUB_SHA}
+          kubectl set image deployments/multi-worker worker=joshcausey/multi-worker:${GITHUB_SHA}
