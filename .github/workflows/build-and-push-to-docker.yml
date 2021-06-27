@@ -17,19 +17,22 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
       
       - name: Build client
-        run: docker build -t joshcausey/multi-client:${GITHUB_SHA} ./client
+        run: docker build -t joshcausey/multi-client:${GITHUB_SHA} -t joshcausey/multi-client:latest ./client
 
       - name: Build server
-        run: docker build -t joshcausey/multi-server:${GITHUB_SHA} ./worker
+        run: docker build -t joshcausey/multi-server:${GITHUB_SHA} -t joshcausey/multi-server:latest ./worker
 
       - name: Build worker
-        run: docker build -t joshcausey/multi-worker:${GITHUB_SHA} ./worker
+        run: docker build -t joshcausey/multi-worker:${GITHUB_SHA} -t joshcausey/multi-worker:latest ./worker
       
       - name: Push imaages to Docker Hub
         run: |
           docker push joshcausey/multi-client:${GITHUB_SHA}
           docker push joshcausey/multi-server:${GITHUB_SHA}
           docker push joshcausey/multi-worker:${GITHUB_SHA}
+          docker push joshcausey/multi-client:latest
+          docker push joshcausey/multi-server:latest
+          docker push joshcausey/multi-worker:latest
 
       - name: Set up Cloud SDK
         uses: google-github-actions/setup-gcloud@master
@@ -40,3 +43,10 @@ jobs:
 
       - name: Update kubectl
         run: gcloud components update kubectl
+
+      - name: Deploy
+        run: |
+          kubectl apply -f k8s
+          kubectl set image deployments/server-deployment server=joshcausey/multi-server${GITHUB_SHA}
+          kubectl set image deployments/multi-client client=joshcausey/multi-client${GITHUB_SHA}
+          kubectl set image deployments/multi-worker worker=joshcausey/multi-worker${GITHUB_SHA}
