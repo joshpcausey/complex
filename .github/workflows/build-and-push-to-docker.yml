@@ -25,7 +25,7 @@ jobs:
       - name: Build worker
         run: docker build -t joshcausey/multi-worker:${GITHUB_SHA} -t joshcausey/multi-worker:latest ./worker
       
-      - name: Push imaages to Docker Hub
+      - name: Push images to Docker Hub
         run: |
           docker push joshcausey/multi-client:${GITHUB_SHA}
           docker push joshcausey/multi-server:${GITHUB_SHA}
@@ -43,6 +43,11 @@ jobs:
 
       - name: Update kubectl
         run: gcloud components update kubectl
+
+      - name: Configure target
+        run:  |
+          gcloud config set project multi-k8s-317714
+          gcloud config set compute/zone us-central1-c
 
       - name: Deploy
         run: |
